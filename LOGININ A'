@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// Fungsi untuk memulai permainan
+void startGame(string username, string difficulty) {
+    cout << "\n=== Memulai Permainan ===" << endl;
+    cout << "Pemain: " << username << endl;
+    cout << "Kesulitan: " << difficulty << endl;
+    cout << "Selamat bermain!" << endl;
+    // Tambahkan logika Minesweeper di sini
+}
+
+// Fungsi untuk menampilkan menu kesulitan
+void selectDifficulty(string username) {
+    int choice;
+    cout << "\n=== Pilih Tingkat Kesulitan ===" << endl;
+    cout << "1. Easy" << endl;
+    cout << "2. Medium" << endl;
+    cout << "3. Hard" << endl;
+    cout << "Masukkan pilihan Anda (1/2/3): ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            startGame(username, "Easy");
+            break;
+        case 2:
+            startGame(username, "Medium");
+            break;
+        case 3:
+            startGame(username, "Hard");
+            break;
+        default:
+            cout << "Pilihan tidak valid. Coba lagi." << endl;
+            selectDifficulty(username);
+    }
+}
+string username_base = "Player123", pass_base = "321Player";
+
+// Fungsi untuk menampilkan menu login
+void loginMenu() {
+    int choice;
+    string username,pass;
+
+    cout << "=== MENU LOGIN MINESWEEPER ===" << endl;
+    do{
+        cout << "Masukkan Nama Pengguna: ";
+        cin >> username;
+        cout << "Masukkan Password: ";
+        cin >> pass;
+
+        if(username == username_base && pass == pass_base){
+            selectDifficulty(username);
+        }else if(username == username_base && !(pass == pass_base)){
+            cout << "Password Salah! Silahkan Login Kembali" << endl;
+        }else if(!(username == username_base) && pass == pass_base){
+            cout << "Username Salah! Silahkan Login Kembali" << endl;
+        }else if(username == username_base && !(pass == pass_base)){
+            cout << "Password Salah! Silahkan Login Kembali" << endl;
+        }else{
+            cout << "Password dan Username Salah! Silahkan Login Kembali" << endl;
+        }
+    }while(username != username_base && pass != pass_base);
+}
+
+// Fungsi utama
+int main(){
+    loginMenu();
+    return 0;
+}
