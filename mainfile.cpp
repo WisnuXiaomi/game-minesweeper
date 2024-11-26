@@ -1,6 +1,6 @@
 #include <ncurses/ncurses.h>
 #include <windows.h>
-#include "MenuLogin.cpp"
+#include "fungsilogin.cpp"
 
 void print_menu(WINDOW *menu_win, int pilTerpilih, const char *opsi[], int jumlahOpsi);
 
