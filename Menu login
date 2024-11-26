@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Fungsi untuk memulai permainan
+void startGame(string username, string difficulty) {
+    cout << "\n=== Memulai Permainan ===" << endl;
+    cout << "Pemain: " << username << endl;
+    cout << "Kesulitan: " << difficulty << endl;
+    cout << "Selamat bermain!" << endl;
+    // Tambahkan logika Minesweeper di sini
+}
+
+// Fungsi untuk menampilkan menu kesulitan
+void selectDifficulty(string username) {
+    int choice;
+    cout << "\n=== Pilih Tingkat Kesulitan ===" << endl;
+    cout << "1. Easy" << endl;
+    cout << "2. Medium" << endl;
+    cout << "3. Hard" << endl;
+    cout << "Masukkan pilihan Anda (1/2/3): ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            startGame(username, "Easy");
+            break;
+        case 2:
+            startGame(username, "Medium");
+            break;
+        case 3:
+            startGame(username, "Hard");
+            break;
+        default:
+            cout << "Pilihan tidak valid. Coba lagi." << endl;
+            selectDifficulty(username);
+    }
+}
+
+// Fungsi untuk menampilkan menu login
+void loginMenu() {
+    int choice;
+    string username;
+
+    cout << "=== MENU LOGIN MINESWEEPER ===" << endl;
+    cout << "1. Masukkan Nama Pengguna" << endl;
+    cout << "2. Bermain Sebagai Tamu" << endl;
+    cout << "3. Keluar" << endl;
+    cout << "Masukkan pilihan Anda (1/2/3): ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            cout << "Masukkan Nama Pengguna: ";
+            cin >> username;
+            cout << "Selamat datang, " << username << "!" << endl;
+            selectDifficulty(username);
+            break;
+        case 2:
+            username = "Guest";
+            cout << "Memulai permainan sebagai " << username << "!" << endl;
+            selectDifficulty(username);
+            break;
+        case 3:
+            cout << "Keluar dari game. Sampai jumpa!" << endl;
+            exit(0);
+        default:
+            cout << "Pilihan tidak valid. Coba lagi." << endl;
+            loginMenu();
+    }
+}
+
+// Fungsi utama
+int main() {
+    loginMenu();
+    return 0;
+}
