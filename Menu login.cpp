@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <iostream>
 #include <string>
+#include "menusederhana.cpp"
+
 using namespace std;
 
 // Fungsi untuk memulai permainan
