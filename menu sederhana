@@ -1,0 +1,34 @@
+#include <ncurses/curses.h>
+
+void print_menu(WINDOW *menu_win, int pilTerpilih, const char *opsi[], int jumlahOpsi);
+
+int main(){
+	initscr();
+	clear();
+	noecho();
+	cbreak();
+	int awalX = 50, awalY = 10;
+	int lebar = 20, tinggi = 10;
+	
+	 if (has_colors() == FALSE) {
+        endwin();
+        printf("Your terminal does not support color\n");
+        return 1;
+    }
+    start_color();
+    init_pair(1, COLOR_WHITE, COLOR_BLUE); 
+    init_pair(2, COLOR_BLACK, COLOR_CYAN);
+	
+	WINDOW *menu_win = newwin(tinggi, lebar, awalY, awalX);
+	box(menu_win, 1, 4); 
+	keypad(menu_win, TRUE);
+	
+	const char *opsi[] = {
+	      "Pilihan 1",
+		  "Pilihan 2",
+		  "Pilihan 3",
+		  "Keluar"	
+	};
+	int jumlahOpsi = sizeof(opsi) / sizeof(char *);
+	int pilTerpilih = 0;
+	int pilihan = -1;
