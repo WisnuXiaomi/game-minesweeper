@@ -1,5 +1,4 @@
-#include <ncurses.h>
-#include <string>
+#include<bits/stdc++.h>
 using namespace std;
 
 // Fungsi untuk memulai permainan
@@ -36,42 +35,37 @@ void selectDifficulty(string username) {
             selectDifficulty(username);
     }
 }
+string username_base = "Player123", pass_base = "321Player";
 
 // Fungsi untuk menampilkan menu login
 void loginMenu() {
     int choice;
-    string username;
+    string username,pass;
 
     cout << "=== MENU LOGIN MINESWEEPER ===" << endl;
-    cout << "1. Masukkan Nama Pengguna" << endl;
-    cout << "2. Bermain Sebagai Tamu" << endl;
-    cout << "3. Keluar" << endl;
-    cout << "Masukkan pilihan Anda (1/2/3): ";
-    cin >> choice;
+    do{
+        cout << "Masukkan Nama Pengguna: ";
+        cin >> username;
+        cout << "Masukkan Password: ";
+        cin >> pass;
 
-    switch (choice) {
-        case 1:
-            cout << "Masukkan Nama Pengguna: ";
-            cin >> username;
-            cout << "Selamat datang, " << username << "!" << endl;
+        if(username == username_base && pass == pass_base){
             selectDifficulty(username);
-            break;
-        case 2:
-            username = "Guest";
-            cout << "Memulai permainan sebagai " << username << "!" << endl;
-            selectDifficulty(username);
-            break;
-        case 3:
-            cout << "Keluar dari game. Sampai jumpa!" << endl;
-            exit(0);
-        default:
-            cout << "Pilihan tidak valid. Coba lagi." << endl;
-            loginMenu();
-    }
+        }else if(username == username_base && !(pass == pass_base)){
+            cout << "Password Salah! Silahkan Login Kembali" << endl;
+        }else if(!(username == username_base) && pass == pass_base){
+            cout << "Username Salah! Silahkan Login Kembali" << endl;
+        }else if(username == username_base && !(pass == pass_base)){
+            cout << "Password Salah! Silahkan Login Kembali" << endl;
+        }else{
+            cout << "Password dan Username Salah! Silahkan Login Kembali" << endl;
+        }
+    }while(username != username_base && pass != pass_base);
 }
 
 // Fungsi utama
-int main() {
+int main(){
     loginMenu();
     return 0;
 }
+
