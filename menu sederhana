@@ -10,7 +10,7 @@ int main(){
 	int awalX = 50, awalY = 10;
 	int lebar = 20, tinggi = 10;
 	
-	 if (has_colors() == FALSE) {
+	 if (has_colors() == FALSE){
         endwin();
         printf("Your terminal does not support color\n");
         return 1;
@@ -32,3 +32,33 @@ int main(){
 	int jumlahOpsi = sizeof(opsi) / sizeof(char *);
 	int pilTerpilih = 0;
 	int pilihan = -1;
+
+    wattron(menu_win, COLOR_PAIR(1));
+    mvwprintw(menu_win, 0, (lebar - 10) / 2, "[ MENU ]");
+    wattroff(menu_win, COLOR_PAIR(1));
+
+	
+	while (1){
+		print_menu(menu_win, pilTerpilih, opsi, jumlahOpsi);
+		int tombol = wgetch(menu_win);
+		switch (tombol){
+			case KEY_UP:
+			    if (pilTerpilih == 0)
+			        pilTerpilih = jumlahOpsi - 1;
+			    else
+			        --pilTerpilih;
+			    break;
+			case KEY_DOWN:
+				if (pilTerpilih == jumlahOpsi-1)
+				    pilTerpilih = 0;
+				else
+				    ++pilTerpilih;
+				break;
+			case 10:
+				pilihan = pilTerpilih;
+				break;
+		}
+		if (pilihan == 3) 
+		   break;
+	}
+
