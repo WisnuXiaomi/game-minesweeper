@@ -20,11 +20,12 @@ int main(){
     init_pair(2, COLOR_BLACK, COLOR_CYAN);
 	
 	WINDOW *menu_win = newwin(tinggi, lebar, awalY, awalX);
-	box(menu_win, 1, 4); 
+	box(menu_win, 4, 6); 
+        wbkgd(menu_win, COLOR_PAIR(2));
 	keypad(menu_win, TRUE);
 	
 	const char *opsi[] = {
-	      "Pilihan 1",
+	          "Pilihan 1",
 		  "Pilihan 2",
 		  "Pilihan 3",
 		  "Keluar"	
@@ -62,3 +63,18 @@ int main(){
 		   break;
 	}
 
+	clrtoeol();
+	refresh();
+	endwin();
+	return 0;
+}
+
+void print_menu(WINDOW *menu_win, int pilTerpilih, const char *opsi[], int jumlahOpsi){
+	for (int i = 0; i < jumlahOpsi; i++){
+		if (i == pilTerpilih)
+		   wattron(menu_win, A_REVERSE);
+		mvwprintw(menu_win, i+1, 1, opsi[i]);
+		wattroff(menu_win, A_REVERSE);
+	}
+	wrefresh(menu_win);
+}
