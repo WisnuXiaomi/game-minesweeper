@@ -25,9 +25,9 @@ int main(){
 	keypad(menu_win, TRUE);
 	
 	const char *opsi[] = {
-	          "Pilihan 1",
-		  "Pilihan 2",
-		  "Pilihan 3",
+	          "Easy",
+		  "Medium",
+		  "Hard",
 		  "Keluar"	
 	};
 	int jumlahOpsi = sizeof(opsi) / sizeof(char *);
