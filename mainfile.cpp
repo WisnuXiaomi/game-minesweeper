@@ -2,6 +2,8 @@
 #include <windows.h>
 #include <fstream>
 #include <string>
+#include "easy.h"
+
 
 void print_menu(WINDOW *menu_win, int pilTerpilih, const char *opsi[], int jumlahOpsi);
 void registr();
@@ -56,11 +58,12 @@ bool login() {
     return false;
 }
 
-int main() {
+int main(){
     char username[50];
     char password[50];
     char input;
     bool loggin = false;
+    bool kembali_ke_menu = false;
 	
     initscr();
     clear();
@@ -137,10 +140,9 @@ int main() {
 		    }
 		}
 	
-	
 	    clear();
 	    refresh();
-	
+	    int pilihan = -1;
 	    int awalX = 0, awalY = 0;
 		int lebar = 1000, tinggi = 100;
 		
@@ -164,8 +166,10 @@ int main() {
 		};
 		int jumlahOpsi = sizeof(opsi) / sizeof(char *);
 		int pilTerpilih = 0;
-		int pilihan = -1;
-	
+
+		do{
+		clear();
+		refresh();
 	    mvwprintw(menu_win, 19, 75, "[ Menu ]");
 		mvwprintw(menu_win,0, 25, ".___  ___.  __  .__   __.  _______     _______.____    __    ____  _______  _______ .______    _______ .______      ");
 	    mvwprintw(menu_win,1, 25, "|   \\/   | |  | |  \\ |  | |   ____|   /       |\\   \\  /  \\  /   / |   ____||   ____||   _  \\  |   ____||   _  \\     ");
@@ -193,11 +197,49 @@ int main() {
 				case 10:
 					pilihan = pilTerpilih;
 					break;
-			}
-			if (pilihan == 3) 
-			   break;
-		}
-	}
+				}
+			
+			if(pilihan == 0){
+			keypad(stdscr,TRUE);
+		    initialize_grid();
+		
+		    int x = 0, y = 0;
+		    while (1) {
+		        clear();
+		        draw_grid(x, y);
+		        mvprintw(HEIGHT, 0, "Gunakan tombol panah untuk bergerak, spasi untuk membuka, q untuk keluar.");
+		        refresh();
+		
+		        int ch = getch();
+		        switch (ch) {
+		            case KEY_UP:    if (x > 0) x--; break;
+		            case KEY_DOWN:  if (x < HEIGHT - 1) x++; break;
+		            case KEY_LEFT:  if (y > 0) y--; break;
+		            case KEY_RIGHT: if (y < WIDTH - 1) y++; break;
+		            case ' ': {
+		                reveal(x, y);
+		                if (grid[x][y].mine) {
+		                    mvprintw(HEIGHT + 1, 0, "Game Over! Anda menemukan ranjau.");
+		                    mvprintw(HEIGHT + 1, 0,"Tekan 'M' untuk kembali ke menu atau Tekan 'q' untuk keluar.");
+		                    refresh();
+		                    int pilihan = getch();
+					        if (pilihan == 'm') {
+					            kembali_ke_menu = true;
+					            break;
+					        } else if (pilihan == 'q') {
+					            endwin();
+					            exit(0);
+					        }
+					    }
+					    break;
+						}
+		               		}
+		                }
+		            }
+		        }
+	} while (pilihan != '3');
+}
+	
 
 	clrtoeol();
 	refresh();
