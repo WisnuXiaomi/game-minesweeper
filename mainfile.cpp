@@ -10,6 +10,8 @@ void registr();
 void forgot();
 using namespace std;
 
+
+
 bool login() {
     char user[50], pass[50];
     string u, p;
@@ -159,10 +161,8 @@ int main(){
 		keypad(menu_win, TRUE);
 		
 		const char *opsi[] = {
-		          "Easy",
-			  "Normal",
-			  "Hard",
-			  "Keluar"	
+		    	"Mainkan",
+			  	"Keluar"	
 		};
 		int jumlahOpsi = sizeof(opsi) / sizeof(char *);
 		int pilTerpilih = 0;
@@ -203,11 +203,11 @@ int main(){
 			keypad(stdscr,TRUE);
 		    initialize_grid();
 		
-		    int x = 0, y = 0;
+		    int x = 15, y = 15;
 		    while (1) {
 		        clear();
 		        draw_grid(x, y);
-		        mvprintw(HEIGHT, 0, "Gunakan tombol panah untuk bergerak, spasi untuk membuka, q untuk keluar.");
+		        mvprintw(45, 75, "Gunakan tombol panah untuk bergerak, spasi untuk membuka, q untuk keluar.");
 		        refresh();
 		
 		        int ch = getch();
@@ -223,21 +223,17 @@ int main(){
 		                    mvprintw(HEIGHT + 1, 0,"Tekan 'M' untuk kembali ke menu atau Tekan 'q' untuk keluar.");
 		                    refresh();
 		                    int pilihan = getch();
-					        if (pilihan == 'm') {
-					            kembali_ke_menu = true;
-					            break;
-					        } else if (pilihan == 'q') {
-					            endwin();
-					            exit(0);
-					        }
-					    }
+					    		}
 					    break;
 						}
 		               		}
 		                }
-		            }
+		            }else if(pilihan == 1){
+		            	break;
+					}
 		        }
-	} while (pilihan != '3');
+	} while (input = 'm' );
+	
 }
 	
 
