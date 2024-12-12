@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include "easy.h"
+#include "bgm.h"
 
 
 void print_menu(WINDOW *menu_win, int pilTerpilih, const char *opsi[], int jumlahOpsi);
@@ -65,7 +66,6 @@ int main(){
     char password[50];
     char input;
     bool loggin = false;
-    bool kembali_ke_menu = false;
 	
     initscr();
     clear();
@@ -75,6 +75,7 @@ int main(){
 
 	    do {
         clear();
+        refresh();
 	    mvprintw(0, 25, ".___  ___.  __  .__   __.  _______     _______.____    __    ____  _______  _______ .______    _______ .______      ");
 	    mvprintw(1, 25, "|   \\/   | |  | |  \\ |  | |   ____|   /       |\\   \\  /  \\  /   / |   ____||   ____||   _  \\  |   ____||   _  \\     ");
 	    mvprintw(2, 25, "|  \\  /  | |  | |   \\|  | |  |__     |   (----` \\   \\/    \\/   /  |  |__   |  |__   |  |_)  | |  |__   |  |_)  |    ");
@@ -144,7 +145,8 @@ int main(){
 	
 	    clear();
 	    refresh();
-	    int pilihan = -1;
+	    play_music();
+	    int konfirmasi = -1;
 	    int awalX = 0, awalY = 0;
 		int lebar = 1000, tinggi = 100;
 		
@@ -167,7 +169,6 @@ int main(){
 		int jumlahOpsi = sizeof(opsi) / sizeof(char *);
 		int pilTerpilih = 0;
 
-		do{
 		clear();
 		refresh();
 	    mvwprintw(menu_win, 19, 75, "[ Menu ]");
@@ -195,11 +196,11 @@ int main(){
 					    ++pilTerpilih;
 					break;
 				case 10:
-					pilihan = pilTerpilih;
+					konfirmasi = pilTerpilih;
 					break;
 				}
 			
-			if(pilihan == 0){
+			if(konfirmasi == 0){
 			keypad(stdscr,TRUE);
 		    initialize_grid();
 		
@@ -220,21 +221,21 @@ int main(){
 		                reveal(x, y);
 		                if (grid[x][y].mine) {
 		                    mvprintw(HEIGHT + 1, 0, "Game Over! Anda menemukan ranjau.");
-		                    mvprintw(HEIGHT + 1, 0,"Tekan 'M' untuk kembali ke menu atau Tekan 'q' untuk keluar.");
+		                    mvprintw(HEIGHT + 1, 0,"Tekan 'q' untuk keluar.");
 		                    refresh();
-		                    int pilihan = getch();
-					    		}
-					    break;
-						}
-		               		}
-		                }
-		            }else if(pilihan == 1){
-		            	break;
-					}
+		                    
+		                    while(getch() != 'q');
+		                    return 0;
+					    				}
+					    	break;
+							}
+		               	}
+		            }
 		        }
-	} while (input = 'm' );
+		    }
+		}
+
 	
-}
 	
 
 	clrtoeol();
